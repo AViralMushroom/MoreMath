@@ -2,35 +2,53 @@ import java.util.ArrayList;
 
 class MoreMath {
 
-  public MoreMath() {
-    System.out.println();
+  private MoreMath() {
   }
 
   /**
    * COMBINATORICS
    **/
+   public static int fallingPower(int n, int r) {
+    int output = 1;
+    for (int i = 0; i < r; i++) {
+      output *= (n - i); 
+    }
+    return output;
+  }
+
   public static int nCr(int n, int r) {
     return fallingPower(n, r) / fallingPower(r, r);
   }
 
-  public static int[] expand(int[] coefficients, int exponent) {
-    int size = coefficients.length;
-    int outputSize = ((size - 1) * exponent) + 1;
-    int[] outputCoefficients = new int[outputSize];
-    for (int i = 0; i < outputSize; i++) {
-      outputCoefficients[i] = (int) (nCr(outputSize - 1, i) *
-          Math.pow(coefficients[0], outputSize - i - 1) *
-          Math.pow(coefficients[1], i));
+  public static double[] convolute(double[] poly1, double[] poly2){
+    double[] outputCoefficients = new double[poly1.length + poly2.length - 1];
+    for (int i = 0; i < poly1.length; i++){
+      for (int j = 0; j < poly2.length; j++){
+        outputCoefficients[i + j] += poly1[i] * poly2[j];
+      }
     }
     return outputCoefficients;
   }
 
-  public static int fallingPower(int n, int r) {
-    int output = 1;
-    for (int i = 0; i < r; i++) {
-      output *= (n - i);
+  // PRECONDITION: coefficients array only contains two elements
+  public static double[] expandBinomial(double[] coefficients, int exponent){
+    double[] outputCoefficients = new double[exponent + 1];
+    for (int i = 0; i < exponent + 1; i++){
+      outputCoefficients[i] = (nCr(exponent, i) *
+                              Math.pow(coefficients[0], exponent - i) *
+                              Math.pow(coefficients[1], i));
     }
-    return output;
+    return outputCoefficients;
+  }
+
+  public static double[] expand(double[] coefficients, int exponent){
+    if (exponent == 1)
+      return coefficients;
+    double[] outputCoefficients = convolute(coefficients, coefficients);
+    for (int i = 0; i < exponent - 2; i++){
+      outputCoefficients = convolute(coefficients, outputCoefficients);
+    }
+    return outputCoefficients;
   }
 
   /**
