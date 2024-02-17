@@ -1,6 +1,3 @@
-// sid is bad
-// I am great
-
 import java.util.ArrayList;
 
 class MoreMath {
