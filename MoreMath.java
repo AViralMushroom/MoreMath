@@ -1,21 +1,21 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 class MoreMath {
 
-  String polynomial; 
-  int[] polyArr; 
-  private MoreMath(String polynomial) {
-    this.polynomial = polynomial; 
-    System.out.println(polynomial.split("+"));
+
+  public MoreMath() {
+    
   }
+
 
   /**
    * COMBINATORICS
    **/
-   public static int fallingPower(int n, int r) {
+  public static int fallingPower(int n, int r) {
     int output = 1;
     for (int i = 0; i < r; i++) {
-      output *= (n - i); 
+      output *= (n - i);
     }
     return output;
   }
@@ -24,32 +24,36 @@ class MoreMath {
     return fallingPower(n, r) / fallingPower(r, r);
   }
 
-  public static double[] convolute(double[] poly1, double[] poly2){
+  public static double[] convolute(double[] poly1, double[] poly2) {
     double[] outputCoefficients = new double[poly1.length + poly2.length - 1];
-    for (int i = 0; i < poly1.length; i++){
-      for (int j = 0; j < poly2.length; j++){
+    for (int i = 0; i < poly1.length; i++) {
+      for (int j = 0; j < poly2.length; j++) {
         outputCoefficients[i + j] += poly1[i] * poly2[j];
       }
     }
     return outputCoefficients;
   }
 
+  /**
+   * Polynomial Expansions
+   **/
+
   // PRECONDITION: coefficients array only contains two elements
-  public static double[] expandBinomial(double[] coefficients, int exponent){
+  public static double[] expandBinomial(double[] coefficients, int exponent) {
     double[] outputCoefficients = new double[exponent + 1];
-    for (int i = 0; i < exponent + 1; i++){
+    for (int i = 0; i < exponent + 1; i++) {
       outputCoefficients[i] = (nCr(exponent, i) *
-                              Math.pow(coefficients[0], exponent - i) *
-                              Math.pow(coefficients[1], i));
+          Math.pow(coefficients[0], exponent - i) *
+          Math.pow(coefficients[1], i));
     }
     return outputCoefficients;
   }
 
-  public static double[] expand(double[] coefficients, int exponent){
+  public static double[] expand(double[] coefficients, int exponent) {
     if (exponent == 1)
       return coefficients;
     double[] outputCoefficients = convolute(coefficients, coefficients);
-    for (int i = 0; i < exponent - 2; i++){
+    for (int i = 0; i < exponent - 2; i++) {
       outputCoefficients = convolute(coefficients, outputCoefficients);
     }
     return outputCoefficients;
