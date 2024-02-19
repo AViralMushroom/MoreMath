@@ -38,7 +38,7 @@ public class Polynomial {
       } else if (term.contains("x")) {
         power = 1;
       }
-      this.polyArr[maxPower - power] = coefficient;
+      this.polyArr[power] = coefficient;
     }
   }
 
@@ -47,76 +47,57 @@ public class Polynomial {
     return this.polynomial;
   }
 
-  public String coefficientsToPolynomial(double[] coefficients) {
-    StringBuilder polynomialBuilder = new StringBuilder();
-    for (int i = coefficients.length - 1; i >= 0; i--) {
-      if (coefficients[i] != 0) {
-        if (polynomialBuilder.length() != 0) {
-          polynomialBuilder.append(" + ");
-        }
-        if (i > 1) {
-          polynomialBuilder.append(coefficients[i]).append("x^").append(i);
-        } else if (i == 1) {
-          polynomialBuilder.append(coefficients[i]).append("x");
-        } else {
-          polynomialBuilder.append(coefficients[i]);
-        }
-      }
-    }
-    return polynomialBuilder.toString();
-  }
-
   /**
    * COMBINATORICS
    **/
-  public static int fallingPower(int n, int r) {
-    int output = 1;
-    for (int i = 0; i < r; i++) {
-      output *= (n - i);
-    }
-    return output;
-  }
+  // public static int fallingPower(int n, int r) {
+  //   int output = 1;
+  //   for (int i = 0; i < r; i++) {
+  //     output *= (n - i);
+  //   }
+  //   return output;
+  // }
 
-  public static int nCr(int n, int r) {
-    return fallingPower(n, r) / fallingPower(r, r);
-  }
+  // public static int nCr(int n, int r) {
+  //   return fallingPower(n, r) / fallingPower(r, r);
+  // }
 
-  public static double[] convolute(double[] poly1, double[] poly2) {
-    double[] outputCoefficients = new double[poly1.length + poly2.length - 1];
-    for (int i = 0; i < poly1.length; i++) {
-      for (int j = 0; j < poly2.length; j++) {
-        outputCoefficients[i + j] += poly1[i] * poly2[j];
-      }
-    }
-    return outputCoefficients;
-  }
+  // public static double[] convolute(double[] poly1, double[] poly2) {
+  //   double[] outputCoefficients = new double[poly1.length + poly2.length - 1];
+  //   for (int i = 0; i < poly1.length; i++) {
+  //     for (int j = 0; j < poly2.length; j++) {
+  //       outputCoefficients[i + j] += poly1[i] * poly2[j];
+  //     }
+  //   }
+  //   return outputCoefficients;
+  // }
 
   /**
    * Polynomial Expansions
    **/
 
   // PRECONDITION: coefficients array only contains two elements
-  public static double[] expandBinomial(double[] coefficients, int exponent) {
-    double[] outputCoefficients = new double[exponent + 1];
-    for (int i = 0; i < exponent + 1; i++) {
-      outputCoefficients[i] = (nCr(exponent, i) *
-          Math.pow(coefficients[0], exponent - i) *
-          Math.pow(coefficients[1], i));
-    }
-    return outputCoefficients;
-  }
+  // public static double[] expandBinomial(double[] coefficients, int exponent) {
+  //   double[] outputCoefficients = new double[exponent + 1];
+  //   for (int i = 0; i < exponent + 1; i++) {
+  //     outputCoefficients[i] = (nCr(exponent, i) *
+  //         Math.pow(coefficients[0], exponent - i) *
+  //         Math.pow(coefficients[1], i));
+  //   }
+  //   return outputCoefficients;
+  // }
 
-  public static double[] expand(double[] coefficients, int exponent) {
-    if (exponent == 1)
-      return coefficients;
-    double[] outputCoefficients = convolute(coefficients, coefficients);
-    for (int i = 0; i < exponent - 2; i++) {
-      outputCoefficients = convolute(coefficients, outputCoefficients);
-    }
-    return outputCoefficients;
-  }
+  // public static double[] expand(double[] coefficients, int exponent) {
+  //   if (exponent == 1)
+  //     return coefficients;
+  //   double[] outputCoefficients = convolute(coefficients, coefficients);
+  //   for (int i = 0; i < exponent - 2; i++) {
+  //     outputCoefficients = convolute(coefficients, outputCoefficients);
+  //   }
+  //   return outputCoefficients;
+  // }
 
   public Polynomial expandBy(int exponent) {
-    return new Polynomial(coefficientsToPolynomial(expand(this.polyArr, exponent)));
+    return new Polynomial(MoreMath.coefficientsToPolynomial(MoreMath.expand(this.polyArr, exponent)));
   }
 }

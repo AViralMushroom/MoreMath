@@ -35,7 +35,7 @@ class MoreMath {
   }
 
   /**
-   * Polynomial Expansions
+   * Polynomial related things
    **/
 
   // PRECONDITION: coefficients array only contains two elements
@@ -47,6 +47,26 @@ class MoreMath {
           Math.pow(coefficients[1], i));
     }
     return outputCoefficients;
+  }
+
+  // Coverts a coefficients into a String
+  public static String coefficientsToPolynomial(double[] coefficients) {
+    StringBuilder polynomialBuilder = new StringBuilder();
+    for (int i = coefficients.length - 1; i >= 0; i--) {
+      if (coefficients[i] != 0) {
+        if (polynomialBuilder.length() != 0) {
+          polynomialBuilder.append(" + ");
+        }
+        if (i > 1) {
+          polynomialBuilder.append(coefficients[i]).append("x^").append(i);
+        } else if (i == 1) {
+          polynomialBuilder.append(coefficients[i]).append("x");
+        } else {
+          polynomialBuilder.append(coefficients[i]);
+        }
+      }
+    }
+    return polynomialBuilder.toString();
   }
 
   public static double[] expand(double[] coefficients, int exponent) {

@@ -8,6 +8,6 @@ public class Main{
         Polynomial polynomial = new Polynomial("5x + 5x^2 + 3");
         System.out.println(polynomial.expandBy(2));
         
-        System.out.println('\n' + System.nanoTime() - begin);
+        System.out.println("\n" + (System.nanoTime() - begin));
     }
 }
