@@ -36,7 +36,7 @@ class MoreMath {
    * Polynomial related things
    **/
 
-   // Evaluates a polynomial
+  // Evaluates a polynomial
   public static double evaluatePolynomial(String polynomial, double x) {
     // Remove whitespace from the polynomial string
     polynomial = polynomial.replaceAll("\\s", "");
@@ -50,16 +50,16 @@ class MoreMath {
     for (String term : terms) {
       // Split each term into coefficient and exponent parts
       String[] parts = term.split("x\\^?");
-      int coefficient;
+      double coefficient;
       int exponent;
 
       // If the term has an exponent, parse it
       if (parts.length > 1) {
-        coefficient = Integer.parseInt(parts[0]);
+        coefficient = Double.parseDouble(parts[0]);
         exponent = Integer.parseInt(parts[1]);
       } else {
         // If the term doesn't have an exponent, default to 1
-        coefficient = Integer.parseInt(parts[0]);
+        coefficient = Double.parseDouble(parts[0]);
         exponent = 0;
       }
 
