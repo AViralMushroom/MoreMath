@@ -1,32 +1,31 @@
 import java.util.Arrays;
 
 public class Frame {
-    private int NUM_COLS; // Default value
+    public int NUM_COLS; // Default value
     private int NUM_ROWS; // Default value
 
     private char[][] frame;
 
-    public Frame(){
+    public Frame(int height){
         int width = 80; // Default width
-        int height = 24; // Default height
 
         try {
             String osName = System.getProperty("os.name").toLowerCase();
             if (osName.contains("win")) {
                 width = Integer.parseInt(System.getenv("CMDER_ROWS"));
-                height = Integer.parseInt(System.getenv("CMDER_COLUMNS"));
+                // height = Integer.parseInt(System.getenv("CMDER_COLUMNS"));
             } else {
                 width = Integer.parseInt(System.getenv("COLUMNS"));
-                height = Integer.parseInt(System.getenv("LINES"));
+                // height = Integer.parseInt(System.getenv("LINES"));
             }
         } catch (NumberFormatException | NullPointerException e) {
             // Use default values
         }
         NUM_COLS = width;
-        NUM_ROWS = 100; 
+        NUM_ROWS = height; 
     }
     private static void refresh() {
-        System.out.print("\033[H\033[2J");  // ANSI escape sequence to clear the screen
+        // System.out.print("\033[H\033[2J");  // ANSI escape sequence to clear the screen
         System.out.flush();
     }
 
@@ -112,9 +111,9 @@ public class Frame {
     }
 
     public static void main(String[] args) {
-        Frame thing = new Frame(); 
-        thing.frameSetup();
-        thing.drawLine(0, 0, 49, 49);
-        thing.printFrame();
+        // Frame thing = new Frame(100); 
+        // thing.frameSetup();
+        // thing.drawLine(0, 0, 49, 49);
+        // thing.printFrame();
     }
 }
