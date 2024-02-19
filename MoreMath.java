@@ -3,11 +3,9 @@ import java.util.Arrays;
 
 class MoreMath {
 
-
   private MoreMath() {
-    
-  }
 
+  }
 
   /**
    * COMBINATORICS
@@ -37,6 +35,40 @@ class MoreMath {
   /**
    * Polynomial related things
    **/
+
+   // Evaluates a polynomial
+  public static double evaluatePolynomial(String polynomial, double x) {
+    // Remove whitespace from the polynomial string
+    polynomial = polynomial.replaceAll("\\s", "");
+
+    // Split the polynomial into terms based on '+'
+    String[] terms = polynomial.split("\\+");
+
+    double result = 0;
+
+    // Iterate over each term
+    for (String term : terms) {
+      // Split each term into coefficient and exponent parts
+      String[] parts = term.split("x\\^?");
+      int coefficient;
+      int exponent;
+
+      // If the term has an exponent, parse it
+      if (parts.length > 1) {
+        coefficient = Integer.parseInt(parts[0]);
+        exponent = Integer.parseInt(parts[1]);
+      } else {
+        // If the term doesn't have an exponent, default to 1
+        coefficient = Integer.parseInt(parts[0]);
+        exponent = 0;
+      }
+
+      // Evaluate the term and add it to the result
+      result += coefficient * Math.pow(x, exponent);
+    }
+
+    return result;
+  }
 
   // PRECONDITION: coefficients array only contains two elements
   public static double[] expandBinomial(double[] coefficients, int exponent) {

@@ -7,7 +7,7 @@ public class Main{
         System.out.println(Arrays.toString(MoreMath.expand(new double[] {2,3,4},3)));
         Polynomial polynomial = new Polynomial("5x + 5x^2 + 3");
         System.out.println(polynomial.expandBy(2));
-        
+        System.out.println(polynomial.evaluate(2));
         System.out.println("\n" + (System.nanoTime() - begin));
     }
 }
