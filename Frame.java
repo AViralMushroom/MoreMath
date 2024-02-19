@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class Frame {
     private static int NUM_COLS;
@@ -12,8 +14,9 @@ public class Frame {
     }
 
     public static void frameSetup() {
-        NUM_COLS = 50; // getTerminalWidth() / 2;
-        NUM_ROWS = 50; // getTerminalHeight();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        NUM_COLS = screenSize.width / 2;
+        NUM_ROWS = screenSize.height;
 
         frame = new char[NUM_COLS][NUM_ROWS];
         clearFrame();
@@ -95,13 +98,15 @@ public class Frame {
         }
     }
 
-    // private static int getTerminalWidth() {
-    //     return Math.max(80, Math.min(120, 2 * ((int) (Runtime.getRuntime().exec("tput cols").getInputStream().read()))));
-    // }
+    private static int getTerminalWidth() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        return screenSize.width;
+    }
 
-    // private static int getTerminalHeight() {
-    //     return Math.max(24, Math.min(50, (int) (Runtime.getRuntime().exec("tput lines").getInputStream().read())));
-    // }
+    private static int getTerminalHeight() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        return screenSize.height;
+    }
 
     public static void main(String[] args) {
         frameSetup();

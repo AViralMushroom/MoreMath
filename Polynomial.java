@@ -48,7 +48,7 @@ public class Polynomial {
   }
 
   public double evaluate(double x){
-    return MoreMath.evaluatePolynomial(this.polynomial, x);
+    return MoreMath.evaluatePolynomial(this.polyArr, x);
   }
 
   public Polynomial expandBy(int exponent) {
