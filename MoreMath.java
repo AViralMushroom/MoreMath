@@ -4,7 +4,7 @@ import java.util.Arrays;
 class MoreMath {
 
 
-  public MoreMath() {
+  private MoreMath() {
     
   }
 
