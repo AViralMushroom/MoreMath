@@ -2,7 +2,11 @@ import java.util.ArrayList;
 
 class MoreMath {
 
-  private MoreMath() {
+  String polynomial; 
+  int[] polyArr; 
+  private MoreMath(String polynomial) {
+    this.polynomial = polynomial; 
+    System.out.println(polynomial.split("+"));
   }
 
   /**
