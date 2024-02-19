@@ -1,44 +1,57 @@
 import java.util.Arrays;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
 public class Frame {
-    private static int NUM_COLS;
-    private static int NUM_ROWS;
+    private int NUM_COLS; // Default value
+    private int NUM_ROWS; // Default value
 
-    private static char[][] frame;
+    private char[][] frame;
 
+    public Frame(){
+        int width = 80; // Default width
+        int height = 24; // Default height
+
+        try {
+            String osName = System.getProperty("os.name").toLowerCase();
+            if (osName.contains("win")) {
+                width = Integer.parseInt(System.getenv("CMDER_ROWS"));
+                height = Integer.parseInt(System.getenv("CMDER_COLUMNS"));
+            } else {
+                width = Integer.parseInt(System.getenv("COLUMNS"));
+                height = Integer.parseInt(System.getenv("LINES"));
+            }
+        } catch (NumberFormatException | NullPointerException e) {
+            // Use default values
+        }
+        NUM_COLS = width;
+        NUM_ROWS = 100; 
+    }
     private static void refresh() {
         System.out.print("\033[H\033[2J");  // ANSI escape sequence to clear the screen
         System.out.flush();
     }
 
-    public static void frameSetup() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        NUM_COLS = screenSize.width / 2;
-        NUM_ROWS = screenSize.height;
-
-        frame = new char[NUM_COLS][NUM_ROWS];
-        clearFrame();
+    public void frameSetup() {
+        frame = new char[this.NUM_COLS][this.NUM_ROWS];
+        this.clearFrame();
     }
 
-    public static void clearFrame() {
-        for (char[] row : frame) {
+    public void clearFrame() {
+        for (char[] row : this.frame) {
             Arrays.fill(row, ' ');
         }
         refresh();
     }
 
-    public static void printFrame() {
-        for (int j = NUM_ROWS - 1; j >= 0; j--) {
-            for (int i = 0; i < NUM_COLS; i++) {
-                System.out.print(frame[i][j] + " ");
+    public void printFrame() {
+        for (int j = this.NUM_ROWS - 1; j >= 0; j--) {
+            for (int i = 0; i < this.NUM_COLS; i++) {
+                System.out.print(this.frame[i][j] + " ");
             }
             System.out.println();
         }
     }
 
-    public static void drawLine(int x0, int y0, int x1, int y1) {
+    public void drawLine(int x0, int y0, int x1, int y1) {
         if (Math.abs(y1 - y0) < Math.abs(x1 - x0)) {
             if (x0 > x1) {
                 plotLineLow(x1, y1, x0, y0);
@@ -54,7 +67,7 @@ public class Frame {
         }
     }
 
-    private static void plotLineLow(int x0, int y0, int x1, int y1) {
+    private void plotLineLow(int x0, int y0, int x1, int y1) {
         int dx = x1 - x0;
         int dy = y1 - y0;
         int yi = 1;
@@ -76,7 +89,7 @@ public class Frame {
         }
     }
 
-    private static void plotLineHigh(int x0, int y0, int x1, int y1) {
+    private void plotLineHigh(int x0, int y0, int x1, int y1) {
         int dx = x1 - x0;
         int dy = y1 - y0;
         int xi = 1;
@@ -98,19 +111,10 @@ public class Frame {
         }
     }
 
-    private static int getTerminalWidth() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize.width;
-    }
-
-    private static int getTerminalHeight() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize.height;
-    }
-
     public static void main(String[] args) {
-        frameSetup();
-        drawLine(10, 5, 70, 15);
-        printFrame();
+        Frame thing = new Frame(); 
+        thing.frameSetup();
+        thing.drawLine(0, 0, 49, 49);
+        thing.printFrame();
     }
 }
