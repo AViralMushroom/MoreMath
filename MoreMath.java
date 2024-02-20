@@ -253,4 +253,6 @@ class MoreMath {
     int baseTen = baseNTo10Converter(baseNNum, oldBase);
     return base10ToNConverter(baseTen, newBase);
   }
+  
+
 }
