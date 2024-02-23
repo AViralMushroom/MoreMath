@@ -181,7 +181,10 @@ class MoreMath {
     }
     return true;
   }
-
+  // Precondition: NEVER USE THIS, IT'S a JOKE that might not even work
+  public static boolean isPrime2(int n) {
+    return !new String(new char[n]).matches(".?|(..+?)\1+");
+ }
   /**
    * BASE NUMBER SYSTEMS
    **/
@@ -197,16 +200,16 @@ class MoreMath {
     return decimal;
   }
 
-  public static String base10ToNConverter(int baseTenNum, int newBase) {
+  public static String base10ToNConverter(long baseTenNum, int newBase) {
     // change of base formula, number of digits in new number
     int newNumDigits = ((int) (Math.log10(baseTenNum) / Math.log10(newBase))) + 1;
     // write new number as string for letters
     String baseN = "";
-    int placeValueAti = 0;
+    long placeValueAti = 0;
     // invalid inputs, error messages
     for (int i = newNumDigits; i >= 1; i--) {
       // figures out the place value at any value in base ten
-      placeValueAti = (baseTenNum / (int) Math.pow(newBase, i - 1)) % newBase;
+      placeValueAti = (baseTenNum / (long) Math.pow(newBase, i - 1)) % newBase;
       // writes base ten value in single digit base N value
       if (placeValueAti > 9)
         baseN += String.valueOf((char) (placeValueAti - 10 + 65));

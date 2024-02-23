@@ -14,7 +14,7 @@ public class Graph {
     }
     public static void main(String args[])
     {
-        Graph thing = new Graph(new Polynomial("0.01x^2+0.01x"), 10);
+        // Graph thing = new Graph(new Polynomial("0.01x^2+0.01x"), 10);
     }
     
 }
