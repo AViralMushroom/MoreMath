@@ -81,9 +81,20 @@ public class prime {
    }
 
    public static void main(String[] args) {
-      // generatePrimesUpTo(Integer.MAX_VALUE);
-     // writeBitSetToFile(primes, "output.txt");
-     printBitSetFileContent("output.txt");
+      generatePrimesUpTo(Integer.MAX_VALUE);
+      long begin = System.nanoTime();
+      for (int i = 0; i < 10000; i++)
+      {
+         String a = "" + (isPrime(i));
+      }
+      System.out.println(System.nanoTime() - begin);
+      begin = System.nanoTime();
+      for (int i = 0; i < 10000; i++)
+      {
+         String a  = "" + MoreMath.isPrime(i);
+      }
+      System.out.println(System.nanoTime() - begin);
+   
 
    }
    public static void printBitSetFileContent(String filename) {
