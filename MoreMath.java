@@ -8,6 +8,36 @@ class MoreMath {
   }
 
   /**
+   * PROBABILITY
+   **/
+  public double binomCDF(int n, int x, double p){
+    int product = 1;
+    for (int i = 0; i < x; i++){
+      product *= p;
+    }
+    for (int i = 0; i < (n - x); i++){
+      product *= (1 - p);
+    }
+    return nCr(n,x) * product;
+  }
+
+  public double binomPDF(int n, int x, double p){
+    int sum = 0;
+    for (int i = 0; i <= x; i++){
+      sum += binomCDF(n, i, p);
+    }
+    return sum;
+  }
+
+  public double geometCDF(int n, double p){
+    int product = 1;
+    for (int i = 1; i <= n - 1; i++){
+      product *= (1 - p);
+    }
+    return product * p;
+  }
+
+  /**
    * COMBINATORICS
    **/
   public static int fallingPower(int n, int r) {
@@ -47,7 +77,7 @@ class MoreMath {
     }
 
     return result;
-}
+  }
 
 
   // PRECONDITION: coefficients array only contains two elements
@@ -97,8 +127,11 @@ class MoreMath {
   public static int factorial(int num) {
     if (num < 0)
       throw new ArithmeticException("No negative integer factorials");
-    int factorial = 1;
-    for (int i = num; i > 1; i--) {
+    if (num == 0 || num == 1){
+      return 1;
+    }
+    int factorial = num;
+    for (int i = num - 1; i >= 2; i--){
       factorial *= i;
     }
     return factorial;
@@ -181,10 +214,7 @@ class MoreMath {
     }
     return true;
   }
-  // Precondition: NEVER USE THIS, IT'S a JOKE that might not even work
-  public static boolean isPrime2(int n) {
-    return !new String(new char[n]).matches(".?|(..+?)\1+");
- }
+
   /**
    * BASE NUMBER SYSTEMS
    **/
