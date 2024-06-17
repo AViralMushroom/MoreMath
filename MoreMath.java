@@ -37,6 +37,14 @@ class MoreMath {
     return product * p;
   }
 
+  public double geometPDF(int n, double p){
+    int sum = 0;
+    for (int i = 1; i <= n; i++){
+      sum += geometCDF(i,p);
+    }
+    return sum;
+  }
+
   /**
    * COMBINATORICS
    **/
